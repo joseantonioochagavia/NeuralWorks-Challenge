@@ -1,9 +1,9 @@
 # NeuralWorks-Challenge
 
-El desafío consiste en un problema de clasificación binaria, donde se busca predecir la probabilidad de atraso de los vuelos con origen en el aeropuerto de Santiago, Para eso se cuenta con el dataset “dataset_SCL.csv” que se puede descargar en el respositorio.
+El desafío consiste en un problema de clasificación binaria, el que busca predecir la probabilidad de atraso de los vuelos con origen en el aeropuerto de Santiago, Para esto se cuenta con el dataset “dataset_SCL.csv”, el que se puede descargar en el respositorio.
 
-Para el desafio se busco resolver las siguientes preguntas:
--	Escoger el modelo que tenga una mejor performance, argumentando tu decisión.
+Para el desafio se resolvieron las siguientes preguntas:
+-	Escoger el modelo que tenga una mejor performance.
 -	Implementar mejoras sobre el modelo escogiendo la o las técnicas que prefieras.
 -	Habilitar el modelo seleccionado como API REST para ser expuesto.
 -	Hacer pruebas de estrés a la API con el modelo expuesto con al menos 50.000 requests durante 45 segundos. Para esto se utilizo la herramienta de testeto “wrk” que se encuentra en el siguiente link: https://github.com/wg/wrk
@@ -14,13 +14,13 @@ Para el desafio se busco resolver las siguientes preguntas:
 Originalmente se contaba con el archivo "to-expose-original.ipynb" que contenia en análisis y modelación preliminar del problema de machine learning. 
 Se trabajo sobre este archivo base en "to-expose-modified.ipinb" donde se profundizo en el analisis y se agregaron nuevas variables y modelos para resolver las preguntas anteriores.
 
-Se compararon 4 modelos: Regresion Logistica, XGBoost, KNeighborsClassifier y RandomForestClassifier. Se testearon estos modelos mediante diversas metricas de evaluacion, donde las metricas mas relevantes que se considerarn para la eleccion final fue f1_score y el Coeficiente e Correlacion de Matthews. Estas debido al inbalance de clases que se presenta en el target, donde la clase 1 corresponde a atraso y 0 a no atraso. En la siguiente figura se muestra la compraracon por metricas para los modelos.
+Se compararon 4 modelos: Regresion Logistica, XGBoost, KNeighborsClassifier y RandomForestClassifier. Se testearon estos modelos mediante diversas metricas de evaluacion, donde las metricas mas relevantes que se considerarn para la eleccion final fue f1_score y el Coeficiente de Correlacion de Matthews. Estas debido al inbalance de clases que se presenta en el target, donde solo el 18% de los datos que se usaron para la fase de testeo son atrasos (clase 1). En la siguiente figura se muestra la compraracon por metricas para los modelos.
 
 ![image](https://user-images.githubusercontent.com/120424248/221386201-251eb483-55b4-4f9f-860c-a47e1feb7600.png)
 
 Del grafico y guiandonos por las metricas de f1-score y MCC al existir imbalance de clases, se observa que los modeos de KNeighbors y RandomForest se comportan bastante parecidos y suepran a los otros dos. Por simplicidad y dado que KNeighbors no tiene un metodo en particular para calcular feature importance, optamos por **RandomForestClassifier**.
 
-Hay que señalar que todos los modelos fueron malos, debido a la gran cantidad de falsos negativos. Una de las posibles razones, la más clara, es el desbalanceo que existe en la clase 'atraso_15'. Del total de datos un 82% corresponde a no atraso y el 18% restante a atraso. 
+Hay que señalar que todos los modelos fueron malos, debido a la gran cantidad de falsos negativos. Una de las posibles razones, la más clara, es el desbalanceo que existe en la clase 'atraso_15'.
 
 Para poder mejorar la performance se realizo un Grid Search CV sobre RandomForest para tunear de mejor manera los hiperparámetros. Existen mas opciones que se podrian hacer en un futuro para seguir mejorando, como probar nuevos modelos o uno mas complejo. De la perspectiva de los datos, si se quiere seguir mejorando, una opcion tambien seria recolectar mas datos para poder entrenar mejor al modelo. Tambien se podria mejorar la estrategia de autorrelenado para los valores faltantes (para el caso de periododia) junto con la estrategia de encoding (cambiar los valores no numericos a numericos).
 
